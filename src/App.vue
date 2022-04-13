@@ -1,13 +1,3 @@
-<template>
-  <header>
-    <h1>¡PokeMemory!</h1>
-  </header>
-
-  <main>
-    <ChessBoard :cards="pokemon" :backCardImage="backCardImage"></ChessBoard>
-  </main>
-</template>
-
 <script setup>
 
 // Importamos el JSON. Vue ya lo convierte en un array de objetos y lo poe en la variable pokedex 
@@ -15,10 +5,12 @@ import pokedex from './assets/pokedex.json';
 import backCardImage from './assets/back-card.png';
 import Card from './components/Card.vue';
 import ChessBoard from './components/ChessBoard.vue';
+import { reactive } from 'vue';
 
 // Iteración 1. Haced un console.log para ver el resultado. Sugerencia: cread una variable nueva normal y corriente
 
 let pokemon = pokedex.slice(0, 10);
+
 
 // usar .map adecuadamente sobre la variable 'pokemon'. Reasignar el resultado en 'pokemon' solo con los 3 campos requeridos. 
 
@@ -32,17 +24,39 @@ pokemon = pokemon.map((p) => {
   }
 })
 
+const state = reactive({
+  score: 0
+})
 
-console.log(pokemon);
+function checkCards(isMatch) {
+  if (isMatch) {
+    state.score++;
+  }
+}
+
 
 </script>
+
+<template>
+  <header>
+    <h1>¡PokeMemory!</h1>
+    <p>Score: {{ state.score }} </p>
+  </header>
+
+  <main>
+    <ChessBoard @onCheckedCards="checkCards" :cards="pokemon" :backCardImage="backCardImage"></ChessBoard>
+  </main>
+</template>
 
 <style>
 @import "./assets/base.css";
 
 header {
   line-height: 1.5;
+  display: flex;
+  justify-content: space-between;
 }
+
 
 .logo {
   display: block;
