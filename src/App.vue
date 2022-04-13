@@ -4,9 +4,7 @@
   </header>
 
   <main>
-    <Card :back="backCardImage" front="/pokemons/666.png" :reveal="false"></Card>
-    <Card :back="backCardImage" front="/pokemons/666.png" :reveal="true"></Card>
-    <Card :back="backCardImage" front="/pokemons/777.png" :reveal="true"></Card>
+    <ChessBoard :cards="pokemon" :backCardImage="backCardImage"></ChessBoard>
   </main>
 </template>
 
@@ -16,10 +14,24 @@
 import pokedex from './assets/pokedex.json';
 import backCardImage from './assets/back-card.png';
 import Card from './components/Card.vue';
+import ChessBoard from './components/ChessBoard.vue';
 
 // Iteración 1. Haced un console.log para ver el resultado. Sugerencia: cread una variable nueva normal y corriente
 
 let pokemon = pokedex.slice(0, 10);
+
+// usar .map adecuadamente sobre la variable 'pokemon'. Reasignar el resultado en 'pokemon' solo con los 3 campos requeridos. 
+
+// Primera iteración: me quedo solo con el id y el nombre en inglés
+// Segunda iteración: Construyo la ruta a la imagen. Por ejemplo para el primer pokemon seria '/pokemons/001.png' , pero para el 10 sería '/pokemons/010.png' 
+pokemon = pokemon.map((p) => {
+  return {
+    id: p.id,
+    name: p.name.english,
+    image: `/pokemons/${p.id.toString().padStart(3, '0')}.png`
+  }
+})
+
 
 console.log(pokemon);
 
