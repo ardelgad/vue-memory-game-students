@@ -1,18 +1,29 @@
+<template>
+  <header>
+    <h1>¡PokeMemory!</h1>
+  </header>
+
+  <main>
+    <Card :back="backCardImage" front="/pokemons/666.png" :reveal="false"></Card>
+    <Card :back="backCardImage" front="/pokemons/666.png" :reveal="true"></Card>
+    <Card :back="backCardImage" front="/pokemons/777.png" :reveal="true"></Card>
+  </main>
+</template>
+
 <script setup>
 
 // Importamos el JSON. Vue ya lo convierte en un array de objetos y lo poe en la variable pokedex 
 import pokedex from './assets/pokedex.json';
+import backCardImage from './assets/back-card.png';
+import Card from './components/Card.vue';
+
+// Iteración 1. Haced un console.log para ver el resultado. Sugerencia: cread una variable nueva normal y corriente
+
+let pokemon = pokedex.slice(0, 10);
+
+console.log(pokemon);
 
 </script>
-
-<template>
-  <header>
-    <h1>¡PokeMemory</h1>
-  </header>
-
-  <main>
-  </main>
-</template>
 
 <style>
 @import "./assets/base.css";
